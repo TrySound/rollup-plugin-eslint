@@ -43,6 +43,13 @@ export default function eslint(options = {}) {
                 err.name = 'ESLintError';
                 throw err;
             }
+
+            if (options.breakOnWarning) {
+                const err = Error(' ');
+                err.name = ' ';
+                err.stack = null;
+                throw err;
+            }
         }
     };
 }

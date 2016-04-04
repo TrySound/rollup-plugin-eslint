@@ -41,6 +41,13 @@ Default: `false`
 
 If true, will throw an error if any warnings or errors were found.
 
+### breakOnWarning
+
+Type: `boolean`  
+Default: `false`
+
+If true, will stop rollup if any warnings or errors were found without throwing an error. This helps to have clean warnings and errors from eslint without adding error stack trace.
+
 ### include
 
 Type: `array` or `string`  
