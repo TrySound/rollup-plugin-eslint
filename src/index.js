@@ -41,12 +41,6 @@ export default function eslint(options = {}) {
                     'Warnings or errors were found'
                 );
                 err.name = 'ESLintError';
-                throw err;
-            }
-
-            if (options.breakOnWarning) {
-                const err = Error(' ');
-                err.name = ' ';
                 err.stack = null;
                 throw err;
             }

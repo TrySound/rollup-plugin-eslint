@@ -64,22 +64,6 @@ test('should fail with enabled throwError option', t => {
         t.fail('should throw error');
     }).catch(err => {
         t.is(err.toString(), 'ESLintError: Warnings or errors were found');
-    });
-});
-
-test('should fail without trace with enabled breakOnWarning option', t => {
-    return rollup({
-        entry: 'fixtures/use-strict.js',
-        plugins: [
-            eslint({
-                breakOnWarning: true,
-                formatter: () => ''
-            })
-        ]
-    }).then(() => {
-        t.fail('should throw error');
-    }).catch(err => {
-        t.is(err.toString(), ' :  ');
         t.is(err.stack, null);
     });
 });
