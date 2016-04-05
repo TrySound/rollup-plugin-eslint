@@ -64,5 +64,6 @@ test('should fail with enabled throwError option', t => {
         t.fail('should throw error');
     }).catch(err => {
         t.is(err.toString(), 'ESLintError: Warnings or errors were found');
+        t.is(err.stack, null);
     });
 });

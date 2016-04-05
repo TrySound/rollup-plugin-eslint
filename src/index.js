@@ -41,6 +41,7 @@ export default function eslint(options = {}) {
                     'Warnings or errors were found'
                 );
                 err.name = 'ESLintError';
+                err.stack = null;
                 throw err;
             }
         }
