@@ -11,7 +11,7 @@
 ## Install
 
 ```sh
-npm i rollup-plugin-eslint -D
+npm i eslint rollup-plugin-eslint -D
 ```
 
 
