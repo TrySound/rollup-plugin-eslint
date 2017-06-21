@@ -29,7 +29,8 @@ export default function eslint(options = {}) {
 			}
 
 			const report = cli.executeOnText(code, file);
-			if (!report.errorCount && !report.warningCount) {
+			const anyError = !!report.errorCount || !!report.warningCount;
+			if (!anyError) {
 				return null;
 			}
 
@@ -38,8 +39,13 @@ export default function eslint(options = {}) {
 				console.log(result);
 			}
 
-			if (options.throwError) {
+			const throwBoth = options.throwOnError && options.throwOnWarning;
+			if (throwBoth && anyError) {
 				throw Error('Warnings or errors were found');
+			} else if (options.throwOnError && report.errorCount) {
+				throw Error('Errors were found');
+			} else if (options.throwOnWarning && report.warningCount) {
+				throw Error('Warnings were found');
 			}
 		}
 	};

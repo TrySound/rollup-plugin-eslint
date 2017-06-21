@@ -36,7 +36,7 @@ describe('rollup-plugin-eslint', () => {
 	it('should ignore node_modules with exclude option', () => {
 		return rollup({
 			entry: 'fixtures/modules.js',
-			external: ['path', 'minimatch', 'estree-walker'],
+			external: ['path', 'micromatch', 'estree-walker'],
 			plugins: [
 				nodeResolve({ jsnext: true }),
 				eslint({
@@ -63,19 +63,48 @@ describe('rollup-plugin-eslint', () => {
 		});
 	});
 
-	it('should fail with enabled throwError option', () => {
+	it('should fail with enabled throwOnError option', () => {
 		return rollup({
 			entry: 'fixtures/use-strict.js',
 			plugins: [
 				eslint({
-					throwError: true,
+					throwOnError: true,
 					formatter: () => ''
 				})
 			]
 		}).then(() => {
 			assert.fail('should throw error');
 		}).catch(err => {
-			assert.notEqual(err.toString().indexOf('Warnings or errors were found'), -1);
+			assert.notEqual(err.toString().indexOf('Errors were found'), -1);
+		});
+	});
+
+	it('should fail with enabled throwOnWarning option', () => {
+		return rollup({
+			entry: 'fixtures/use-strict.js',
+			plugins: [
+				eslint({
+					throwOnWarning: true,
+					formatter: () => ''
+				})
+			]
+		}).then(() => {
+			assert.fail('should throw error');
+		}).catch(err => {
+			assert.notEqual(err.toString().indexOf('Warnings were found'), -1);
+		});
+	});
+
+	it('should not fail with throwOnError and throwOnWarning disabled', () => {
+		return rollup({
+			entry: 'fixtures/use-strict.js',
+			plugins: [
+				eslint({
+					throwOnError: false,
+					throwOnWarning: false,
+					formatter: () => ''
+				})
+			]
 		});
 	});
 
