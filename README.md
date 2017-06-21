@@ -36,35 +36,35 @@ See more options here [eslint-config].
 
 ### throwOnError
 
-Type: `boolean`
+Type: `boolean`  
 Default: `false`
 
 If true, will throw an error if any errors were found.
 
 ### throwOnWarning
 
-Type: `boolean`
+Type: `boolean`  
 Default: `false`
 
 If true, will throw an error if any warnings were found.
 
 ### include
 
-Type: `array` or `string`
+Type: `array` or `string`  
 Default: `[]`
 
 A single file, or array of files, to include when linting.
 
 ### exclude
 
-Type: `array` or `string`
+Type: `array` or `string`  
 Default: `node_modules/**`
 
 A single file, or array of files, to exclude when linting.
 
 ### formatter
 
-Type: `function` or `string`
+Type: `function` or `string`  
 Default: `stylish`
 
 Custom error formatter or the name of a built-in formatter.
