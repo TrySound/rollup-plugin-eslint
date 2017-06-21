@@ -36,7 +36,7 @@ describe('rollup-plugin-eslint', () => {
 	it('should ignore node_modules with exclude option', () => {
 		return rollup({
 			entry: 'fixtures/modules.js',
-			external: ['path', 'minimatch', 'estree-walker'],
+			external: ['path', 'micromatch', 'estree-walker'],
 			plugins: [
 				nodeResolve({ jsnext: true }),
 				eslint({
