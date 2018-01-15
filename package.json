@@ -38,9 +38,9 @@
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-jest": "^22.1.0",
+    "babel-jest": "^20.0.3",
     "babel-preset-env": "^1.5.2",
-    "jest": "^22.1.1",
+    "jest": "^20.0.4",
     "rollup": "^0.54.0",
     "rollup-plugin-node-resolve": "^3.0.0"
   },
