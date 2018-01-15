@@ -7,7 +7,7 @@ process.chdir('test');
 test('should lint files', () => {
     let count = 0;
     return rollup({
-        entry: 'fixtures/undeclared.js',
+        input: 'fixtures/undeclared.js',
         plugins: [
             eslint({
                 formatter: (results) => {
@@ -24,7 +24,7 @@ test('should lint files', () => {
 
 test('should not fail with default options', () => {
     return rollup({
-        entry: 'fixtures/undeclared.js',
+        input: 'fixtures/undeclared.js',
         plugins: [
             eslint()
         ]
@@ -34,7 +34,7 @@ test('should not fail with default options', () => {
 test('should ignore node_modules with exclude option', () => {
     let count = 0;
     return rollup({
-        entry: 'fixtures/modules.js',
+        input: 'fixtures/modules.js',
         plugins: [
             nodeResolve({ jsnext: true }),
             eslint({
@@ -52,7 +52,7 @@ test('should ignore node_modules with exclude option', () => {
 test('should ignore files according .eslintignore', () => {
     let count = 0;
     return rollup({
-        entry: 'fixtures/ignored.js',
+        input: 'fixtures/ignored.js',
         plugins: [
             eslint({
                 formatter: () => {
@@ -68,7 +68,7 @@ test('should ignore files according .eslintignore', () => {
 test('should fail with enabled throwOnWarning and throwOnError options', () => {
     return expect(
         rollup({
-            entry: 'fixtures/use-strict.js',
+            input: 'fixtures/with-error.js',
             plugins: [
                 eslint({
                     throwOnWarning: true,
@@ -83,7 +83,7 @@ test('should fail with enabled throwOnWarning and throwOnError options', () => {
 test('should fail with enabled throwOnError option', () => {
     return expect(
         rollup({
-            entry: 'fixtures/use-strict.js',
+            input: 'fixtures/with-error.js',
             plugins: [
                 eslint({
                     throwOnError: true,
@@ -97,7 +97,7 @@ test('should fail with enabled throwOnError option', () => {
 test('should fail with enabled throwOnWarning option', () => {
     return expect(
         rollup({
-            entry: 'fixtures/use-strict.js',
+            input: 'fixtures/with-error.js',
             plugins: [
                 eslint({
                     throwOnWarning: true,
@@ -110,7 +110,7 @@ test('should fail with enabled throwOnWarning option', () => {
 
 test('should not fail with throwOnError and throwOnWarning disabled', () => {
     return rollup({
-        entry: 'fixtures/use-strict.js',
+        input: 'fixtures/with-error.js',
         plugins: [
             eslint({
                 throwOnError: false,
@@ -129,7 +129,7 @@ test('should fail with not found formatter', () => {
 
 test('should not fail with found formatter', () => {
     return rollup({
-        entry: 'fixtures/use-strict.js',
+        input: 'fixtures/with-error.js',
         plugins: [
             eslint({
                 formatter: 'stylish'
@@ -137,3 +137,41 @@ test('should not fail with found formatter', () => {
         ]
     });
 });
+
+describe('fix bundled code', () => {
+    const outputOptions = {
+        format: 'iife',
+        name: 'fixed'
+    };
+
+    const configFile = 'fixtures/.eslintrc';
+
+    function getBundleCode(promise) {
+        return promise.then(bundle => bundle.generate(outputOptions))
+                      .then(({ code }) => code)
+    }
+
+    test('should fix if enabled', () => {
+        return expect(
+            getBundleCode(rollup({
+                input: 'fixtures/fixable.js',
+                plugins: [ 
+                    eslint({ 
+                        fix: true,
+                        configFile
+                    }) ]
+            }))
+        ).resolves.not.toEqual(expect.stringContaining('debugger;'))
+    })
+    
+    test('should not fix if disabled', () => {
+        return expect(
+            getBundleCode(rollup({
+                input: 'fixtures/fixable.js',
+                plugins: [ eslint({ configFile }) ]
+            }))
+        ).resolves.toEqual(expect.stringContaining('debugger;'))
+    })
+})
+
+
