@@ -69,6 +69,12 @@ Default: `stylish`
 
 Custom error formatter or the name of a built-in formatter.
 
+### fix
+
+Type: `boolean`  
+Default: `false`
+
+Whether to run autofixing logic on bundeled code
 
 # License
 

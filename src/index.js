@@ -53,6 +53,16 @@ module.exports = function eslint(options = {}) {
             if (hasErrors) {
                 throw Error('Errors were found');
             }
+        },
+
+        transformBundle(code) {
+            if (!options.fix) {
+                return code;
+            }
+
+            const report = cli.executeOnText(code);
+ 
+            return report.results[0].output;
         }
     };
 }
