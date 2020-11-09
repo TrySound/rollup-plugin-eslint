@@ -33,7 +33,7 @@ function eslint(options = {}) {
 
     transform(code, id) {
       const file = normalizePath(id);
-      if (cli.isPathIgnored(file) || !filter(id)) {
+      if (!filter(id) || cli.isPathIgnored(file)) {
         return null;
       }
 
