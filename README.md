@@ -1,5 +1,7 @@
 # rollup-plugin-eslint [![Travis Build Status][travis-img]][travis]
 
+This plugin is migrated to https://github.com/rollup/plugins/tree/master/packages/eslint
+
 [travis-img]: https://travis-ci.org/TrySound/rollup-plugin-eslint.svg
 [travis]: https://travis-ci.org/TrySound/rollup-plugin-eslint
 [rollup]: https://github.com/rollup/rollup
