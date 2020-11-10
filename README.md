@@ -31,6 +31,19 @@ export default {
 };
 ```
 
+**Note:** You can pass a relative path to your eslint config file 
+```js
+import { rollup } from "rollup";
+import { eslint } from "rollup-plugin-eslint";
+
+export default {
+  input: "main.js",
+  plugins: [
+    eslint('./path-to-my-eslintconfig')
+  ]
+};
+```
+
 ## Options
 
 See more options here [eslint-config].
